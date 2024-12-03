@@ -1,0 +1,22 @@
+using UnityEngine;
+
+public class BreathingOrb : MonoBehaviour
+{
+    public float animationSpeed = 1f;
+    public float maxScale = 2f;
+    public float minScale = 1f;
+
+    private bool expanding = true;
+
+    void Update()
+    {
+        float scaleChange = animationSpeed * Time.deltaTime;
+        if (expanding)
+            transform.localScale += Vector3.one * scaleChange;
+        else
+            transform.localScale -= Vector3.one * scaleChange;
+
+        if (transform.localScale.x >= maxScale) expanding = false;
+        if (transform.localScale.x <= minScale) expanding = true;
+    }
+}
