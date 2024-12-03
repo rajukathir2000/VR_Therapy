@@ -1,0 +1,45 @@
+using UnityEngine;
+
+public class PlaySoundOnMove : MonoBehaviour
+{
+    private Vector3 lastPosition;    // To store the last position of the GameObject
+    private AudioSource audioSource; // Reference to the AudioSource component
+
+    void Start()
+    {
+        // Initialize the last position to the current position
+        lastPosition = transform.position;
+
+        // Get the AudioSource component
+        audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource component missing from GameObject!");
+        }
+    }
+
+    void Update()
+    {
+        // Check if the object has moved
+        if (transform.position != lastPosition)
+        {
+            // Play the sound if not already playing
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            // Stop the sound if the object has stopped moving
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+        }
+
+        // Update the last position
+        lastPosition = transform.position;
+    }
+}
